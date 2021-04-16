@@ -5,8 +5,7 @@ import com.nhl.dflib.DataFrame;
 import com.nhl.dflib.unit.BooleanSeriesAsserts;
 import org.junit.jupiter.api.Test;
 
-import static com.nhl.dflib.exp.Exp.$bool;
-import static com.nhl.dflib.exp.Exp.$str;
+import static com.nhl.dflib.exp.Exp.*;
 
 public class ConditionTest {
 
@@ -50,5 +49,16 @@ public class ConditionTest {
 
         BooleanSeries s = $str("b").eq($str("a")).or($bool("c")).eval(df);
         new BooleanSeriesAsserts(s).expectData(true, true, false);
+    }
+
+    @Test
+    public void testOr_Multiple() {
+        DataFrame df = DataFrame.newFrame("a", "b", "c").foldByRow(
+                false, false, false,
+                true, true, true,
+                true, false, false);
+
+        BooleanSeries s = $or($bool("a"), $bool("b"), $bool("c")).eval(df);
+        new BooleanSeriesAsserts(s).expectData(false, true, true);
     }
 }
