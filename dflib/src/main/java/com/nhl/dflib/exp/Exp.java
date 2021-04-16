@@ -22,6 +22,10 @@ public interface Exp<V> {
         return new DoubleColumn(name);
     }
 
+    static BooleanColumn $bool(String name) {
+        return new BooleanColumn(name);
+    }
+
     static StringColumn $str(String name) {
         return new StringColumn(name);
     }

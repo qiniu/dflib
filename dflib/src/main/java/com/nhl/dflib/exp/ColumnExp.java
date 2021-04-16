@@ -8,7 +8,7 @@ import com.nhl.dflib.Series;
  *
  * @since 0.11
  */
-public class ColumnExp<V> implements Exp<V> {
+public class ColumnExp<V> implements ValueExp<V> {
 
     private final String name;
     private final Class<V> type;

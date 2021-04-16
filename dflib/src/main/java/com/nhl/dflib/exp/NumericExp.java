@@ -5,7 +5,7 @@ import com.nhl.dflib.exp.num.ArithmeticExpFactory;
 /**
  * @since 0.11
  */
-public interface NumericExp<N extends Number> extends Exp<N> {
+public interface NumericExp<N extends Number> extends ValueExp<N> {
 
     default NumericExp<?> plus(Exp<? extends Number> exp) {
         return ArithmeticExpFactory.factory(this, exp).plus(this, exp);
