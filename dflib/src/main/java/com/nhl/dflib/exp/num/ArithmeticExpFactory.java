@@ -38,6 +38,10 @@ public abstract class ArithmeticExpFactory {
 
     public abstract NumericExp<?> minus(Exp<? extends Number> left, Exp<? extends Number> right);
 
+    public abstract NumericExp<?> multiply(Exp<? extends Number> left, Exp<? extends Number> right);
+
+    public abstract NumericExp<?> divide(Exp<? extends Number> left, Exp<? extends Number> right);
+
     public static ArithmeticExpFactory factory(Exp<? extends Number> left, Exp<? extends Number> right) {
         return factory(left.getType(), right.getType());
     }

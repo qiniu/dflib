@@ -14,4 +14,12 @@ public interface NumericExp<N extends Number> extends ValueExp<N> {
     default NumericExp<?> minus(Exp<? extends Number> exp) {
         return ArithmeticExpFactory.factory(this, exp).minus(this, exp);
     }
+
+    default NumericExp<?> multiply(Exp<? extends Number> exp) {
+        return ArithmeticExpFactory.factory(this, exp).multiply(this, exp);
+    }
+
+    default NumericExp<?> divide(Exp<? extends Number> exp) {
+        return ArithmeticExpFactory.factory(this, exp).divide(this, exp);
+    }
 }

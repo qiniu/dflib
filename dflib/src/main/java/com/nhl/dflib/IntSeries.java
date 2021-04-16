@@ -165,4 +165,32 @@ public interface IntSeries extends Series<Integer> {
 
         return accumulator.toSeries();
     }
+
+    /**
+     * @since 0.11
+     */
+    default IntSeries multiply(IntSeries s) {
+        int len = size();
+        IntAccumulator accumulator = new IntAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addInt(this.getInt(i) * s.getInt(i));
+        }
+
+        return accumulator.toSeries();
+    }
+
+    /**
+     * @since 0.11
+     */
+    default IntSeries divide(IntSeries s) {
+        int len = size();
+        IntAccumulator accumulator = new IntAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addInt(this.getInt(i) / s.getInt(i));
+        }
+
+        return accumulator.toSeries();
+    }
 }

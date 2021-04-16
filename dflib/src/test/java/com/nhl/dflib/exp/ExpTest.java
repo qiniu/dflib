@@ -168,4 +168,25 @@ public class ExpTest {
         new SeriesAsserts(s).expectData(2000_000_000_002L, 7L);
     }
 
+    @Test
+    public void testIntMultiplyInt() {
+        DataFrame df = DataFrame.newFrame("a", "b").foldByRow(
+                6, 2,
+                3, 5);
+
+        Series<? extends Number> s = $int("b").multiply($int("a")).eval(df);
+        assertFalse(s instanceof IntSeries);
+        new SeriesAsserts(s).expectData(12, 15);
+    }
+
+    @Test
+    public void testIntDivideDouble() {
+        DataFrame df = DataFrame.newFrame("a", "b").foldByRow(
+                2., 3,
+                3., 9);
+
+        Series<? extends Number> s = $int("b").divide($double("a")).eval(df);
+        new SeriesAsserts(s).expectData(1.5, 3.);
+    }
+
 }

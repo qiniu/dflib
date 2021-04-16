@@ -29,4 +29,22 @@ public class DoubleExpFactory extends ArithmeticExpFactory {
                 (n1, n2) -> n1 != null && n2 != null ? n1.doubleValue() - n2.doubleValue() : null,
                 (s1, s2) -> s1.minus(s2));
     }
+
+    @Override
+    public NumericExp<?> multiply(Exp<? extends Number> left, Exp<? extends Number> right) {
+        return new DoubleBinaryExp(left.getName() + "*" + right.getName(),
+                castToDouble(left),
+                castToDouble(right),
+                (n1, n2) -> n1 != null && n2 != null ? n1.doubleValue() * n2.doubleValue() : null,
+                (s1, s2) -> s1.multiply(s2));
+    }
+
+    @Override
+    public NumericExp<?> divide(Exp<? extends Number> left, Exp<? extends Number> right) {
+        return new DoubleBinaryExp(left.getName() + "/" + right.getName(),
+                castToDouble(left),
+                castToDouble(right),
+                (n1, n2) -> n1 != null && n2 != null ? n1.doubleValue() / n2.doubleValue() : null,
+                (s1, s2) -> s1.divide(s2));
+    }
 }

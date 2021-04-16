@@ -154,4 +154,32 @@ public interface LongSeries extends Series<Long> {
 
         return accumulator.toSeries();
     }
+
+    /**
+     * @since 0.11
+     */
+    default LongSeries multiply(LongSeries s) {
+        int len = size();
+        LongAccumulator accumulator = new LongAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addLong(this.getLong(i) * s.getLong(i));
+        }
+
+        return accumulator.toSeries();
+    }
+
+    /**
+     * @since 0.11
+     */
+    default LongSeries divide(LongSeries s) {
+        int len = size();
+        LongAccumulator accumulator = new LongAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addLong(this.getLong(i) / s.getLong(i));
+        }
+
+        return accumulator.toSeries();
+    }
 }
