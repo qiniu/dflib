@@ -20,7 +20,7 @@ import static com.nhl.dflib.exp.Exp.$int;
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @Fork(2)
 @State(Scope.Thread)
-public class DataFrameColumn {
+public class DataFrameExp {
 
     @Param("5000000")
     public int rows;
