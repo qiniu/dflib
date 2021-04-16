@@ -1,9 +1,11 @@
-package com.nhl.dflib.exp;
+package com.nhl.dflib.exp.condition;
 
 import com.nhl.dflib.BooleanSeries;
 import com.nhl.dflib.BooleanValueMapper;
 import com.nhl.dflib.DataFrame;
 import com.nhl.dflib.Series;
+import com.nhl.dflib.exp.ColumnExp;
+import com.nhl.dflib.exp.Condition;
 
 /**
  * @since 0.11

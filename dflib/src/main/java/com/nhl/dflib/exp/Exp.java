@@ -2,6 +2,10 @@ package com.nhl.dflib.exp;
 
 import com.nhl.dflib.DataFrame;
 import com.nhl.dflib.Series;
+import com.nhl.dflib.exp.condition.BooleanColumn;
+import com.nhl.dflib.exp.num.DoubleColumn;
+import com.nhl.dflib.exp.num.IntColumn;
+import com.nhl.dflib.exp.num.LongColumn;
 
 import java.util.Objects;
 

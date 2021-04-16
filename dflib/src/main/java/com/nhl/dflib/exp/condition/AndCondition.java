@@ -2,7 +2,6 @@ package com.nhl.dflib.exp.condition;
 
 import com.nhl.dflib.BooleanSeries;
 import com.nhl.dflib.exp.Condition;
-import com.nhl.dflib.exp.Exp;
 
 /**
  * @since 0.11
