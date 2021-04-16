@@ -137,4 +137,18 @@ public interface IntSeries extends Series<Integer> {
      * @since 0.7
      */
     double median();
+
+    /**
+     * @since 0.11
+     */
+    default IntSeries plus(IntSeries s) {
+        int len = size();
+        IntAccumulator accumulator = new IntAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addInt(this.getInt(i) + s.getInt(i));
+        }
+
+        return accumulator.toSeries();
+    }
 }

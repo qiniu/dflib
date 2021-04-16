@@ -126,4 +126,18 @@ public interface DoubleSeries extends Series<Double> {
      * @since 0.7
      */
     double median();
+
+    /**
+     * @since 0.11
+     */
+    default DoubleSeries plus(DoubleSeries s) {
+        int len = size();
+        DoubleAccumulator accumulator = new DoubleAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addDouble(this.getDouble(i) + s.getDouble(i));
+        }
+
+        return accumulator.toSeries();
+    }
 }
