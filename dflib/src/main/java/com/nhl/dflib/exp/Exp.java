@@ -14,6 +14,10 @@ public interface Exp<V> {
         return new IntColumn(name);
     }
 
+    static LongColumn $long(String name) {
+        return new LongColumn(name);
+    }
+
     static DoubleColumn $double(String name) {
         return new DoubleColumn(name);
     }

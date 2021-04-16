@@ -11,6 +11,9 @@ import org.openjdk.jmh.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.nhl.dflib.exp.Exp.$double;
+import static com.nhl.dflib.exp.Exp.$int;
+
 @Warmup(iterations = 2, time = 1)
 @Measurement(iterations = 3, time = 1)
 @BenchmarkMode(Mode.AverageTime)
@@ -48,7 +51,7 @@ public class DataFrameColumn {
 
     @Benchmark
     public Object mapIntViaColumn() {
-        Exp<Integer> plus = Exp.$int("c0").plusInt(Exp.$int("c1"));
+        Exp<?> plus = $int("c0").plus($int("c1"));
         return plus.eval(df).materialize().iterator();
     }
 
@@ -61,7 +64,7 @@ public class DataFrameColumn {
 
     @Benchmark
     public Object mapIntegerViaColumn() {
-        Exp<Integer> plus = Exp.$int("c0").plusInt(Exp.$int("c2"));
+        Exp<?> plus = $int("c0").plus($int("c2"));
         return plus.eval(df).materialize().iterator();
     }
 
@@ -87,7 +90,7 @@ public class DataFrameColumn {
 
     @Benchmark
     public Object mapDoubleViaColumn() {
-        Exp<Double> plus = Exp.$double("c5").plusDouble(Exp.$double("c6"));
+        Exp<?> plus = $double("c5").plus($double("c6"));
         return plus.eval(df).materialize().iterator();
     }
 }

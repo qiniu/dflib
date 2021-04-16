@@ -151,4 +151,18 @@ public interface IntSeries extends Series<Integer> {
 
         return accumulator.toSeries();
     }
+
+    /**
+     * @since 0.11
+     */
+    default IntSeries minus(IntSeries s) {
+        int len = size();
+        IntAccumulator accumulator = new IntAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addInt(this.getInt(i) - s.getInt(i));
+        }
+
+        return accumulator.toSeries();
+    }
 }

@@ -140,4 +140,18 @@ public interface DoubleSeries extends Series<Double> {
 
         return accumulator.toSeries();
     }
+
+    /**
+     * @since 0.11
+     */
+    default DoubleSeries minus(DoubleSeries s) {
+        int len = size();
+        DoubleAccumulator accumulator = new DoubleAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addDouble(this.getDouble(i) - s.getDouble(i));
+        }
+
+        return accumulator.toSeries();
+    }
 }
