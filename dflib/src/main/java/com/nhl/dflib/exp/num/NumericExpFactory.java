@@ -1,7 +1,7 @@
 package com.nhl.dflib.exp.num;
 
 import com.nhl.dflib.exp.Condition;
-import com.nhl.dflib.exp.Exp;
+import com.nhl.dflib.Exp;
 import com.nhl.dflib.exp.NumericExp;
 
 import java.util.HashMap;

@@ -2,7 +2,7 @@ package com.nhl.dflib.exp.str;
 
 import com.nhl.dflib.exp.BinaryExp;
 import com.nhl.dflib.exp.ColumnExp;
-import com.nhl.dflib.exp.Exp;
+import com.nhl.dflib.Exp;
 
 /**
  * @since 0.11

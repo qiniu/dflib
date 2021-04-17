@@ -2,6 +2,7 @@ package com.nhl.dflib.exp;
 
 import com.nhl.dflib.BooleanSeries;
 import com.nhl.dflib.DataFrame;
+import com.nhl.dflib.Exp;
 import com.nhl.dflib.exp.condition.AndCondition;
 import com.nhl.dflib.exp.condition.OrCondition;
 

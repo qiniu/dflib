@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.stream.LongStream;
 
-import static com.nhl.dflib.exp.Exp.*;
+import static com.nhl.dflib.Exp.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConditionTest {

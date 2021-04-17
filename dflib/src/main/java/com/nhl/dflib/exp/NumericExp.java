@@ -1,5 +1,6 @@
 package com.nhl.dflib.exp;
 
+import com.nhl.dflib.Exp;
 import com.nhl.dflib.exp.num.NumericExpFactory;
 
 /**

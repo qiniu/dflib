@@ -8,37 +8,10 @@ import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
-import static com.nhl.dflib.exp.Exp.*;
+import static com.nhl.dflib.Exp.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ExpTest {
-
-    @Test
-    public void testStr_ReadColumn() {
-        DataFrame df = DataFrame.newFrame("a", "b", "c").foldByRow(
-                "1", "2", "3",
-                "4", "5", "6");
-
-        Series<String> s = $str("b").eval(df);
-        new SeriesAsserts(s).expectData("2", "5");
-    }
-
-    @Test
-    public void testStr_Named() {
-        Exp<String> e = $str("b");
-        assertEquals("b", e.getName());
-        assertEquals("c", e.named("c").getName());
-    }
-
-    @Test
-    public void testStr_Concat() {
-        DataFrame df = DataFrame.newFrame("a", "b", "c").foldByRow(
-                "1", "2", "3",
-                "4", "5", "6");
-
-        Series<String> s = $str("b").concat($str("a")).eval(df);
-        new SeriesAsserts(s).expectData("21", "54");
-    }
+public class NumericExpTest {
 
     @Test
     public void testIntPlusInt() {
@@ -52,7 +25,7 @@ public class ExpTest {
     }
 
     @Test
-    public void testIntPlusInt_IntSeries() {
+    public void testIntPlusInt_Primitive() {
         DataFrame df = DataFrame.newFrame("a", "b").foldIntStreamByRow(IntStream.of(1, 2, 3, 4));
 
         // sanity check of the test DataFrame
@@ -80,7 +53,7 @@ public class ExpTest {
     }
 
     @Test
-    public void testDoublePlusDouble_DoubleSeries() {
+    public void testDoublePlusDouble_Primitive() {
         DataFrame df = DataFrame.newFrame("a", "b").foldDoubleStreamByRow(DoubleStream.of(1.01, 2., 3., 4.5));
 
         // sanity check of the test DataFrame
@@ -162,7 +135,7 @@ public class ExpTest {
     }
 
     @Test
-    public void testLongPlusLong_LongSeries() {
+    public void testLongPlusLong_Primitive() {
         DataFrame df = DataFrame.newFrame("a", "b").foldLongStreamByRow(LongStream.of(1L, 2000_000_000_001L, 3L, 4L));
 
         // sanity check of the test DataFrame

@@ -1,18 +1,14 @@
 package com.nhl.dflib.benchmark.speed;
 
-import com.nhl.dflib.DataFrame;
-import com.nhl.dflib.DoubleSeries;
-import com.nhl.dflib.IntSeries;
-import com.nhl.dflib.Series;
+import com.nhl.dflib.*;
 import com.nhl.dflib.benchmark.DataGenerator;
 import com.nhl.dflib.benchmark.ValueMaker;
-import com.nhl.dflib.exp.*;
 import org.openjdk.jmh.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.nhl.dflib.exp.Exp.$double;
-import static com.nhl.dflib.exp.Exp.$int;
+import static com.nhl.dflib.Exp.$double;
+import static com.nhl.dflib.Exp.$int;
 
 @Warmup(iterations = 2, time = 1)
 @Measurement(iterations = 3, time = 1)

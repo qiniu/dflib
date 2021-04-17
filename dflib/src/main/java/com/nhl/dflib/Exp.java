@@ -1,7 +1,7 @@
-package com.nhl.dflib.exp;
+package com.nhl.dflib;
 
-import com.nhl.dflib.DataFrame;
-import com.nhl.dflib.Series;
+import com.nhl.dflib.exp.Condition;
+import com.nhl.dflib.exp.RenamedExp;
 import com.nhl.dflib.exp.condition.AndCondition;
 import com.nhl.dflib.exp.condition.BooleanColumn;
 import com.nhl.dflib.exp.condition.OrCondition;
