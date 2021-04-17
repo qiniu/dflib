@@ -71,10 +71,44 @@ public class ConditionTest {
     public void testIntLtDouble() {
         DataFrame df = DataFrame.newFrame("a", "b").foldByRow(
                 1.01, -1,
-                3., 4);
+                3., 4,
+                3., 3);
 
         BooleanSeries s = $int("b").lt($double("a")).eval(df);
-        new BooleanSeriesAsserts(s).expectData(true, false);
+        new BooleanSeriesAsserts(s).expectData(true, false, false);
+    }
+
+    @Test
+    public void testLongLeInt() {
+        DataFrame df = DataFrame.newFrame("a", "b").foldByRow(
+                1L, -1,
+                3L, 3,
+                3L, 4);
+
+        BooleanSeries s = $long("a").le($int("b")).eval(df);
+        new BooleanSeriesAsserts(s).expectData(false, true, true);
+    }
+
+    @Test
+    public void testIntGtInt() {
+        DataFrame df = DataFrame.newFrame("a", "b").foldByRow(
+                1, -1,
+                3, 3,
+                3, 4);
+
+        BooleanSeries s = $int("a").gt($int("b")).eval(df);
+        new BooleanSeriesAsserts(s).expectData(true, false, false);
+    }
+
+    @Test
+    public void testIntGeInt() {
+        DataFrame df = DataFrame.newFrame("a", "b").foldByRow(
+                1, -1,
+                3, 3,
+                3, 4);
+
+        BooleanSeries s = $int("a").ge($int("b")).eval(df);
+        new BooleanSeriesAsserts(s).expectData(true, true, false);
     }
 
     @Test

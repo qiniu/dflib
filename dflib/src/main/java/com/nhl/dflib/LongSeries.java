@@ -197,4 +197,46 @@ public interface LongSeries extends Series<Long> {
 
         return accumulator.toSeries();
     }
+
+    /**
+     * @since 0.11
+     */
+    default BooleanSeries le(LongSeries s) {
+        int len = size();
+        BooleanAccumulator accumulator = new BooleanAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addBoolean(this.getLong(i) <= s.getLong(i));
+        }
+
+        return accumulator.toSeries();
+    }
+
+    /**
+     * @since 0.11
+     */
+    default BooleanSeries gt(LongSeries s) {
+        int len = size();
+        BooleanAccumulator accumulator = new BooleanAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addBoolean(this.getLong(i) > s.getLong(i));
+        }
+
+        return accumulator.toSeries();
+    }
+
+    /**
+     * @since 0.11
+     */
+    default BooleanSeries ge(LongSeries s) {
+        int len = size();
+        BooleanAccumulator accumulator = new BooleanAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addBoolean(this.getLong(i) >= s.getLong(i));
+        }
+
+        return accumulator.toSeries();
+    }
 }

@@ -208,4 +208,46 @@ public interface IntSeries extends Series<Integer> {
 
         return accumulator.toSeries();
     }
+
+    /**
+     * @since 0.11
+     */
+    default BooleanSeries le(IntSeries s) {
+        int len = size();
+        BooleanAccumulator accumulator = new BooleanAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addBoolean(this.getInt(i) <= s.getInt(i));
+        }
+
+        return accumulator.toSeries();
+    }
+
+    /**
+     * @since 0.11
+     */
+    default BooleanSeries gt(IntSeries s) {
+        int len = size();
+        BooleanAccumulator accumulator = new BooleanAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addBoolean(this.getInt(i) > s.getInt(i));
+        }
+
+        return accumulator.toSeries();
+    }
+
+    /**
+     * @since 0.11
+     */
+    default BooleanSeries ge(IntSeries s) {
+        int len = size();
+        BooleanAccumulator accumulator = new BooleanAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addBoolean(this.getInt(i) >= s.getInt(i));
+        }
+
+        return accumulator.toSeries();
+    }
 }

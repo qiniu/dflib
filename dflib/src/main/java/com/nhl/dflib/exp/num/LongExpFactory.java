@@ -66,10 +66,37 @@ public class LongExpFactory extends NumericExpFactory {
 
     @Override
     public Condition lt(Exp<? extends Number> left, Exp<? extends Number> right) {
-        return new LongBinaryCondition(left.getName() + "<" + right.getName(),
+        return new LongBinaryCondition("<",
                 cast(left),
                 cast(right),
                 BinaryCondition.toSeriesCondition((Long n1, Long n2) -> n1 < n2),
+                LongSeries::lt);
+    }
+
+    @Override
+    public Condition le(Exp<? extends Number> left, Exp<? extends Number> right) {
+        return new LongBinaryCondition("<=",
+                cast(left),
+                cast(right),
+                BinaryCondition.toSeriesCondition((Long n1, Long n2) -> n1 <= n2),
+                LongSeries::lt);
+    }
+
+    @Override
+    public Condition gt(Exp<? extends Number> left, Exp<? extends Number> right) {
+        return new LongBinaryCondition(">",
+                cast(left),
+                cast(right),
+                BinaryCondition.toSeriesCondition((Long n1, Long n2) -> n1 > n2),
+                LongSeries::lt);
+    }
+
+    @Override
+    public Condition ge(Exp<? extends Number> left, Exp<? extends Number> right) {
+        return new LongBinaryCondition(">=",
+                cast(left),
+                cast(right),
+                BinaryCondition.toSeriesCondition((Long n1, Long n2) -> n1 >= n2),
                 LongSeries::lt);
     }
 }

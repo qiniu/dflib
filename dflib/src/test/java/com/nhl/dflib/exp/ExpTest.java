@@ -108,6 +108,16 @@ public class ExpTest {
     }
 
     @Test
+    public void testIntPlusLong() {
+        DataFrame df = DataFrame.newFrame("a", "b").foldByRow(
+                1L, 2,
+                3L, 4);
+
+        Series<? extends Number> s = $int("b").plus($long("a")).eval(df);
+        new SeriesAsserts(s).expectData(3L, 7L);
+    }
+
+    @Test
     public void testDoublePlusInt() {
         DataFrame df = DataFrame.newFrame("a", "b").foldByRow(
                 1.01, 2,

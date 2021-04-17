@@ -47,6 +47,12 @@ public abstract class NumericExpFactory {
 
     public abstract Condition lt(Exp<? extends Number> left, Exp<? extends Number> right);
 
+    public abstract Condition le(Exp<? extends Number> left, Exp<? extends Number> right);
+
+    public abstract Condition gt(Exp<? extends Number> left, Exp<? extends Number> right);
+
+    public abstract Condition ge(Exp<? extends Number> left, Exp<? extends Number> right);
+
     public static NumericExpFactory factory(Exp<? extends Number> left, Exp<? extends Number> right) {
         return factory(left.getType(), right.getType());
     }

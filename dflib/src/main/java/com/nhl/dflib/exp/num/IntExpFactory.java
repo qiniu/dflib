@@ -66,10 +66,37 @@ public class IntExpFactory extends NumericExpFactory {
 
     @Override
     public Condition lt(Exp<? extends Number> left, Exp<? extends Number> right) {
-        return new IntBinaryCondition(left.getName() + "<" + right.getName(),
+        return new IntBinaryCondition("<",
                 cast(left),
                 cast(right),
                 BinaryCondition.toSeriesCondition((Integer n1, Integer n2) -> n1 < n2),
+                IntSeries::lt);
+    }
+
+    @Override
+    public Condition le(Exp<? extends Number> left, Exp<? extends Number> right) {
+        return new IntBinaryCondition("<=",
+                cast(left),
+                cast(right),
+                BinaryCondition.toSeriesCondition((Integer n1, Integer n2) -> n1 <= n2),
+                IntSeries::lt);
+    }
+
+    @Override
+    public Condition gt(Exp<? extends Number> left, Exp<? extends Number> right) {
+        return new IntBinaryCondition(">",
+                cast(left),
+                cast(right),
+                BinaryCondition.toSeriesCondition((Integer n1, Integer n2) -> n1 > n2),
+                IntSeries::lt);
+    }
+
+    @Override
+    public Condition ge(Exp<? extends Number> left, Exp<? extends Number> right) {
+        return new IntBinaryCondition(">=",
+                cast(left),
+                cast(right),
+                BinaryCondition.toSeriesCondition((Integer n1, Integer n2) -> n1 >= n2),
                 IntSeries::lt);
     }
 }

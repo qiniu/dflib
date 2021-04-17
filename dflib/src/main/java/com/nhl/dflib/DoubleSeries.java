@@ -197,4 +197,46 @@ public interface DoubleSeries extends Series<Double> {
 
         return accumulator.toSeries();
     }
+
+    /**
+     * @since 0.11
+     */
+    default BooleanSeries le(DoubleSeries s) {
+        int len = size();
+        BooleanAccumulator accumulator = new BooleanAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addBoolean(this.getDouble(i) <= s.getDouble(i));
+        }
+
+        return accumulator.toSeries();
+    }
+
+    /**
+     * @since 0.11
+     */
+    default BooleanSeries gt(DoubleSeries s) {
+        int len = size();
+        BooleanAccumulator accumulator = new BooleanAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addBoolean(this.getDouble(i) > s.getDouble(i));
+        }
+
+        return accumulator.toSeries();
+    }
+
+    /**
+     * @since 0.11
+     */
+    default BooleanSeries ge(DoubleSeries s) {
+        int len = size();
+        BooleanAccumulator accumulator = new BooleanAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addBoolean(this.getDouble(i) >= s.getDouble(i));
+        }
+
+        return accumulator.toSeries();
+    }
 }
