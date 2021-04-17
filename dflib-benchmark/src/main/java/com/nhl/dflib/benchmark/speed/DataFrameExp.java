@@ -45,7 +45,7 @@ public class DataFrameExp {
     }
 
     @Benchmark
-    public Object mapIntViaColumn() {
+    public Object mapIntViaExp() {
         Exp<?> plus = $int("c0").plus($int("c1"));
         return plus.eval(df).materialize().iterator();
     }
@@ -58,7 +58,7 @@ public class DataFrameExp {
     }
 
     @Benchmark
-    public Object mapIntegerViaColumn() {
+    public Object mapIntegerViaExp() {
         Exp<?> plus = $int("c0").plus($int("c2"));
         return plus.eval(df).materialize().iterator();
     }
@@ -71,7 +71,7 @@ public class DataFrameExp {
     }
 
     @Benchmark
-    public Object mapStringViaColumn() {
+    public Object mapStringViaExp() {
         Exp<String> concat = $str("c3").concat($str("c4"));
         return concat.eval(df).materialize().iterator();
     }
@@ -84,7 +84,7 @@ public class DataFrameExp {
     }
 
     @Benchmark
-    public Object mapDoubleViaColumn() {
+    public Object mapDoubleViaExp() {
         Exp<?> plus = $double("c5").plus($double("c6"));
         return plus.eval(df).materialize().iterator();
     }
