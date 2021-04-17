@@ -7,6 +7,8 @@ import com.nhl.dflib.exp.Condition;
 import java.util.function.Function;
 
 /**
+ * A condition that joins a number of other conditions.
+ *
  * @since 0.11
  */
 public abstract class ConjunctiveCondition implements Condition {

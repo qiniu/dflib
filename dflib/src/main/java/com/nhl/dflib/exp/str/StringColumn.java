@@ -1,4 +1,8 @@
-package com.nhl.dflib.exp;
+package com.nhl.dflib.exp.str;
+
+import com.nhl.dflib.exp.BinaryExp;
+import com.nhl.dflib.exp.ColumnExp;
+import com.nhl.dflib.exp.Exp;
 
 /**
  * @since 0.11

@@ -8,6 +8,7 @@ import com.nhl.dflib.exp.condition.OrCondition;
 import com.nhl.dflib.exp.num.DoubleColumn;
 import com.nhl.dflib.exp.num.IntColumn;
 import com.nhl.dflib.exp.num.LongColumn;
+import com.nhl.dflib.exp.str.StringColumn;
 
 import java.util.Objects;
 
@@ -40,11 +41,13 @@ public interface Exp<V> {
     }
 
     static Condition $or(Condition... conditions) {
-        return new OrCondition(conditions);
+        return conditions.length == 1
+                ? conditions[0] : new OrCondition(conditions);
     }
 
     static Condition $and(Condition... conditions) {
-        return new AndCondition(conditions);
+        return conditions.length == 1
+                ? conditions[0] : new AndCondition(conditions);
     }
 
     String getName();
