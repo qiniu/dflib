@@ -80,7 +80,7 @@ public class DoubleExpFactory extends NumericExpFactory {
                 cast(left),
                 cast(right),
                 BinaryCondition.toSeriesCondition((Double n1, Double n2) -> n1 <= n2),
-                DoubleSeries::lt);
+                DoubleSeries::le);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class DoubleExpFactory extends NumericExpFactory {
                 cast(left),
                 cast(right),
                 BinaryCondition.toSeriesCondition((Double n1, Double n2) -> n1 > n2),
-                DoubleSeries::lt);
+                DoubleSeries::gt);
     }
 
     @Override
@@ -98,6 +98,6 @@ public class DoubleExpFactory extends NumericExpFactory {
                 cast(left),
                 cast(right),
                 BinaryCondition.toSeriesCondition((Double n1, Double n2) -> n1 >= n2),
-                DoubleSeries::lt);
+                DoubleSeries::ge);
     }
 }

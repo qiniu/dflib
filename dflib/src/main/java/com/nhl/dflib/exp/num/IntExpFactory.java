@@ -80,7 +80,7 @@ public class IntExpFactory extends NumericExpFactory {
                 cast(left),
                 cast(right),
                 BinaryCondition.toSeriesCondition((Integer n1, Integer n2) -> n1 <= n2),
-                IntSeries::lt);
+                IntSeries::le);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class IntExpFactory extends NumericExpFactory {
                 cast(left),
                 cast(right),
                 BinaryCondition.toSeriesCondition((Integer n1, Integer n2) -> n1 > n2),
-                IntSeries::lt);
+                IntSeries::gt);
     }
 
     @Override
@@ -98,6 +98,6 @@ public class IntExpFactory extends NumericExpFactory {
                 cast(left),
                 cast(right),
                 BinaryCondition.toSeriesCondition((Integer n1, Integer n2) -> n1 >= n2),
-                IntSeries::lt);
+                IntSeries::ge);
     }
 }
