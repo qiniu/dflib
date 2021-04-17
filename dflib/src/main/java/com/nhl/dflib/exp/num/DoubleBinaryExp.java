@@ -6,6 +6,7 @@ import com.nhl.dflib.exp.BinaryExp;
 import com.nhl.dflib.exp.Exp;
 import com.nhl.dflib.exp.NumericExp;
 
+import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 
 /**
@@ -13,23 +14,23 @@ import java.util.function.BinaryOperator;
  */
 public class DoubleBinaryExp extends BinaryExp<Double, Double, Double> implements NumericExp<Double> {
 
-    private final BinaryOperator<DoubleSeries> doubleOp;
+    private final BinaryOperator<DoubleSeries> primitiveOp;
 
     protected DoubleBinaryExp(
             String name,
             Exp<Double> left,
             Exp<Double> right,
-            BinaryOperator<Double> op,
-            BinaryOperator<DoubleSeries> doubleOp) {
+            BiFunction<Series<Double>, Series<Double>, Series<Double>> op,
+            BinaryOperator<DoubleSeries> primitiveOp) {
 
         super(name, Double.class, left, right, op);
-        this.doubleOp = doubleOp;
+        this.primitiveOp = primitiveOp;
     }
 
     @Override
     protected Series<Double> eval(Series<Double> ls, Series<Double> rs) {
         return (ls instanceof DoubleSeries && rs instanceof DoubleSeries)
-                ? doubleOp.apply((DoubleSeries) ls, (DoubleSeries) rs)
+                ? primitiveOp.apply((DoubleSeries) ls, (DoubleSeries) rs)
                 : super.eval(ls, rs);
     }
 }

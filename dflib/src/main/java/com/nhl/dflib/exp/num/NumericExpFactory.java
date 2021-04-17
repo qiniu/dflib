@@ -1,5 +1,6 @@
 package com.nhl.dflib.exp.num;
 
+import com.nhl.dflib.exp.Condition;
 import com.nhl.dflib.exp.Exp;
 import com.nhl.dflib.exp.NumericExp;
 
@@ -43,6 +44,8 @@ public abstract class NumericExpFactory {
     public abstract NumericExp<?> multiply(Exp<? extends Number> left, Exp<? extends Number> right);
 
     public abstract NumericExp<?> divide(Exp<? extends Number> left, Exp<? extends Number> right);
+
+    public abstract Condition lt(Exp<? extends Number> left, Exp<? extends Number> right);
 
     public static NumericExpFactory factory(Exp<? extends Number> left, Exp<? extends Number> right) {
         return factory(left.getType(), right.getType());

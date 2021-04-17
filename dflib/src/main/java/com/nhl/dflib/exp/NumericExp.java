@@ -22,4 +22,8 @@ public interface NumericExp<N extends Number> extends ValueExp<N> {
     default NumericExp<?> divide(Exp<? extends Number> exp) {
         return NumericExpFactory.factory(this, exp).divide(this, exp);
     }
+
+    default Condition lt(Exp<? extends Number> exp) {
+        return NumericExpFactory.factory(this, exp).lt(this, exp);
+    }
 }

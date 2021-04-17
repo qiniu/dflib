@@ -2,10 +2,15 @@ package com.nhl.dflib.exp;
 
 import com.nhl.dflib.BooleanSeries;
 import com.nhl.dflib.DataFrame;
+import com.nhl.dflib.LongSeries;
+import com.nhl.dflib.Series;
 import com.nhl.dflib.unit.BooleanSeriesAsserts;
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.LongStream;
+
 import static com.nhl.dflib.exp.Exp.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConditionTest {
 
@@ -60,5 +65,40 @@ public class ConditionTest {
 
         BooleanSeries s = $or($bool("a"), $bool("b"), $bool("c")).eval(df);
         new BooleanSeriesAsserts(s).expectData(false, true, true);
+    }
+
+    @Test
+    public void testIntLtDouble() {
+        DataFrame df = DataFrame.newFrame("a", "b").foldByRow(
+                1.01, -1,
+                3., 4);
+
+        BooleanSeries s = $int("b").lt($double("a")).eval(df);
+        new BooleanSeriesAsserts(s).expectData(true, false);
+    }
+
+    @Test
+    public void testLongLtLong_Primitive() {
+        DataFrame df = DataFrame.newFrame("a", "b").foldLongStreamByRow(LongStream.of(2L, 1L, 3L, 4L));
+        // sanity check of the test DataFrame
+        Series<Long> a = df.getColumn("a");
+        assertTrue(a instanceof LongSeries);
+
+        Series<Long> b = df.getColumn("b");
+        assertTrue(b instanceof LongSeries);
+
+        // run and verify the calculation
+        BooleanSeries s = $long("a").lt($long("b")).eval(df);
+        new BooleanSeriesAsserts(s).expectData(false, true);
+    }
+
+    @Test
+    public void testComposite() {
+        DataFrame df = DataFrame.newFrame("a", "b", "c", "d").foldByRow(
+                1.01, -1, 0, 1,
+                60., 4, 8, 2);
+
+        BooleanSeries s = $int("b").multiply($int("c")).lt($double("a").divide($int("d"))).eval(df);
+        new BooleanSeriesAsserts(s).expectData(true, false);
     }
 }

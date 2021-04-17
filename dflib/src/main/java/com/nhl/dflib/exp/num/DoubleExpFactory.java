@@ -1,8 +1,8 @@
 package com.nhl.dflib.exp.num;
 
-import com.nhl.dflib.exp.Exp;
-import com.nhl.dflib.exp.NumericExp;
-import com.nhl.dflib.exp.UnaryExp;
+import com.nhl.dflib.DoubleSeries;
+import com.nhl.dflib.exp.*;
+import com.nhl.dflib.exp.condition.BinaryCondition;
 
 public class DoubleExpFactory extends NumericExpFactory {
 
@@ -33,8 +33,8 @@ public class DoubleExpFactory extends NumericExpFactory {
         return new DoubleBinaryExp(left.getName() + "+" + right.getName(),
                 cast(left),
                 cast(right),
-                (n1, n2) -> n1 != null && n2 != null ? n1.doubleValue() + n2.doubleValue() : null,
-                (s1, s2) -> s1.plus(s2));
+                BinaryExp.toSeriesOp((Double n1, Double n2) -> n1 + n2),
+                DoubleSeries::plus);
     }
 
     @Override
@@ -42,8 +42,8 @@ public class DoubleExpFactory extends NumericExpFactory {
         return new DoubleBinaryExp(left.getName() + "-" + right.getName(),
                 cast(left),
                 cast(right),
-                (n1, n2) -> n1 != null && n2 != null ? n1.doubleValue() - n2.doubleValue() : null,
-                (s1, s2) -> s1.minus(s2));
+                BinaryExp.toSeriesOp((Double n1, Double n2) -> n1 - n2),
+                DoubleSeries::minus);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class DoubleExpFactory extends NumericExpFactory {
         return new DoubleBinaryExp(left.getName() + "*" + right.getName(),
                 cast(left),
                 cast(right),
-                (n1, n2) -> n1 != null && n2 != null ? n1.doubleValue() * n2.doubleValue() : null,
-                (s1, s2) -> s1.multiply(s2));
+                BinaryExp.toSeriesOp((Double n1, Double n2) -> n1 * n2),
+                DoubleSeries::multiply);
     }
 
     @Override
@@ -60,7 +60,16 @@ public class DoubleExpFactory extends NumericExpFactory {
         return new DoubleBinaryExp(left.getName() + "/" + right.getName(),
                 cast(left),
                 cast(right),
-                (n1, n2) -> n1 != null && n2 != null ? n1.doubleValue() / n2.doubleValue() : null,
-                (s1, s2) -> s1.divide(s2));
+                BinaryExp.toSeriesOp((Double n1, Double n2) -> n1 / n2),
+                DoubleSeries::divide);
+    }
+
+    @Override
+    public Condition lt(Exp<? extends Number> left, Exp<? extends Number> right) {
+        return new DoubleBinaryCondition(left.getName() + "<" + right.getName(),
+                cast(left),
+                cast(right),
+                BinaryCondition.toSeriesCondition((Double n1, Double n2) -> n1 < n2),
+                DoubleSeries::lt);
     }
 }

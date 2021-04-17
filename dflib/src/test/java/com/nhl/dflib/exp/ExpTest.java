@@ -188,5 +188,4 @@ public class ExpTest {
         Series<? extends Number> s = $int("b").divide($double("a")).eval(df);
         new SeriesAsserts(s).expectData(1.5, 3.);
     }
-
 }

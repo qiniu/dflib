@@ -1,8 +1,8 @@
 package com.nhl.dflib.exp.num;
 
-import com.nhl.dflib.exp.Exp;
-import com.nhl.dflib.exp.NumericExp;
-import com.nhl.dflib.exp.UnaryExp;
+import com.nhl.dflib.IntSeries;
+import com.nhl.dflib.exp.*;
+import com.nhl.dflib.exp.condition.BinaryCondition;
 
 public class IntExpFactory extends NumericExpFactory {
 
@@ -33,8 +33,8 @@ public class IntExpFactory extends NumericExpFactory {
         return new IntBinaryExp(left.getName() + "+" + right.getName(),
                 cast(left),
                 cast(right),
-                (n1, n2) -> n1 != null && n2 != null ? n1.intValue() + n2.intValue() : null,
-                (s1, s2) -> s1.plus(s2));
+                BinaryExp.toSeriesOp((Integer n1, Integer n2) -> n1 + n2),
+                IntSeries::plus);
     }
 
     @Override
@@ -42,8 +42,8 @@ public class IntExpFactory extends NumericExpFactory {
         return new IntBinaryExp(left.getName() + "-" + right.getName(),
                 cast(left),
                 cast(right),
-                (n1, n2) -> n1 != null && n2 != null ? n1.intValue() - n2.intValue() : null,
-                (s1, s2) -> s1.minus(s2));
+                BinaryExp.toSeriesOp((Integer n1, Integer n2) -> n1 - n2),
+                IntSeries::minus);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class IntExpFactory extends NumericExpFactory {
         return new IntBinaryExp(left.getName() + "*" + right.getName(),
                 cast(left),
                 cast(right),
-                (n1, n2) -> n1 != null && n2 != null ? n1.intValue() * n2.intValue() : null,
-                (s1, s2) -> s1.multiply(s2));
+                BinaryExp.toSeriesOp((Integer n1, Integer n2) -> n1 * n2),
+                IntSeries::multiply);
     }
 
     @Override
@@ -60,7 +60,16 @@ public class IntExpFactory extends NumericExpFactory {
         return new IntBinaryExp(left.getName() + "/" + right.getName(),
                 cast(left),
                 cast(right),
-                (n1, n2) -> n1 != null && n2 != null ? n1.intValue() / n2.intValue() : null,
-                (s1, s2) -> s1.divide(s2));
+                BinaryExp.toSeriesOp((Integer n1, Integer n2) -> n1 / n2),
+                IntSeries::divide);
+    }
+
+    @Override
+    public Condition lt(Exp<? extends Number> left, Exp<? extends Number> right) {
+        return new IntBinaryCondition(left.getName() + "<" + right.getName(),
+                cast(left),
+                cast(right),
+                BinaryCondition.toSeriesCondition((Integer n1, Integer n2) -> n1 < n2),
+                IntSeries::lt);
     }
 }

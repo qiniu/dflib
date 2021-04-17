@@ -19,6 +19,6 @@ public class StringColumn extends ColumnExp<String> {
                 String.class,
                 this,
                 c,
-                (s1, s2) -> s1 + s2);
+                BinaryExp.toSeriesOp((s1, s2) -> s1 + s2));
     }
 }
