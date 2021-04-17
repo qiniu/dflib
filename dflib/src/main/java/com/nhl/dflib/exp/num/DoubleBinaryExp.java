@@ -11,7 +11,7 @@ import java.util.function.BinaryOperator;
 /**
  * @since 0.11
  */
-public class DoubleBinaryExp extends BinaryExp<Double> implements NumericExp<Double> {
+public class DoubleBinaryExp extends BinaryExp<Double, Double, Double> implements NumericExp<Double> {
 
     private final BinaryOperator<DoubleSeries> doubleOp;
 

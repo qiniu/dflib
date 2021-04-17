@@ -4,20 +4,20 @@ import com.nhl.dflib.DataFrame;
 import com.nhl.dflib.Series;
 import com.nhl.dflib.accumulator.ObjectAccumulator;
 
-import java.util.function.BinaryOperator;
+import java.util.function.BiFunction;
 
 /**
  * @since 0.11
  */
-public class BinaryExp<V> implements Exp<V> {
+public class BinaryExp<L, R, V> implements Exp<V> {
 
     private final String name;
     private final Class<V> type;
-    private final Exp<V> left;
-    private final Exp<V> right;
-    private final BinaryOperator<V> op;
+    private final Exp<L> left;
+    private final Exp<R> right;
+    private final BiFunction<L, R, V> op;
 
-    public BinaryExp(String name, Class<V> type, Exp<V> left, Exp<V> right, BinaryOperator<V> op) {
+    public BinaryExp(String name, Class<V> type, Exp<L> left, Exp<R> right, BiFunction<L, R, V> op) {
         this.name = name;
         this.type = type;
         this.left = left;
@@ -40,7 +40,7 @@ public class BinaryExp<V> implements Exp<V> {
         return eval(left.eval(df), right.eval(df));
     }
 
-    protected Series<V> eval(Series<V> ls, Series<V> rs) {
+    protected Series<V> eval(Series<L> ls, Series<R> rs) {
         int len = ls.size();
         ObjectAccumulator<V> accum = new ObjectAccumulator<>(len);
         for (int i = 0; i < len; i++) {

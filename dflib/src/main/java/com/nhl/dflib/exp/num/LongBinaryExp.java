@@ -11,7 +11,7 @@ import java.util.function.BinaryOperator;
 /**
  * @since 0.11
  */
-public class LongBinaryExp extends BinaryExp<Long> implements NumericExp<Long> {
+public class LongBinaryExp extends BinaryExp<Long, Long, Long> implements NumericExp<Long> {
 
     private final BinaryOperator<LongSeries> longOp;
 

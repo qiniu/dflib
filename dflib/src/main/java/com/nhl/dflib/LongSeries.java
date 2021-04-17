@@ -1,5 +1,6 @@
 package com.nhl.dflib;
 
+import com.nhl.dflib.accumulator.BooleanAccumulator;
 import com.nhl.dflib.accumulator.LongAccumulator;
 import com.nhl.dflib.series.LongArraySeries;
 
@@ -178,6 +179,20 @@ public interface LongSeries extends Series<Long> {
 
         for (int i = 0; i < len; i++) {
             accumulator.addLong(this.getLong(i) / s.getLong(i));
+        }
+
+        return accumulator.toSeries();
+    }
+
+    /**
+     * @since 0.11
+     */
+    default BooleanSeries lt(LongSeries s) {
+        int len = size();
+        BooleanAccumulator accumulator = new BooleanAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addBoolean(this.getLong(i) < s.getLong(i));
         }
 
         return accumulator.toSeries();

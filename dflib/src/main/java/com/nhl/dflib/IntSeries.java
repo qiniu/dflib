@@ -1,5 +1,6 @@
 package com.nhl.dflib;
 
+import com.nhl.dflib.accumulator.BooleanAccumulator;
 import com.nhl.dflib.series.IntArraySeries;
 import com.nhl.dflib.accumulator.IntAccumulator;
 import com.nhl.dflib.sort.IntComparator;
@@ -189,6 +190,20 @@ public interface IntSeries extends Series<Integer> {
 
         for (int i = 0; i < len; i++) {
             accumulator.addInt(this.getInt(i) / s.getInt(i));
+        }
+
+        return accumulator.toSeries();
+    }
+
+    /**
+     * @since 0.11
+     */
+    default BooleanSeries lt(IntSeries s) {
+        int len = size();
+        BooleanAccumulator accumulator = new BooleanAccumulator(len);
+
+        for (int i = 0; i < len; i++) {
+            accumulator.addBoolean(this.getInt(i) < s.getInt(i));
         }
 
         return accumulator.toSeries();

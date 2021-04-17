@@ -9,10 +9,10 @@ import java.util.Map;
 /**
  * @since 0.11
  */
-public abstract class ArithmeticExpFactory {
+public abstract class NumericExpFactory {
 
     protected static final Map<Class<? extends Number>, Integer> typeConversionRank;
-    protected static final Map<Class<? extends Number>, ArithmeticExpFactory> factories;
+    protected static final Map<Class<? extends Number>, NumericExpFactory> factories;
 
     static {
         typeConversionRank = new HashMap<>();
@@ -20,8 +20,10 @@ public abstract class ArithmeticExpFactory {
         typeConversionRank.put(Float.class, 2);
         typeConversionRank.put(Long.class, 3);
         typeConversionRank.put(Integer.class, 4);
-        typeConversionRank.put(Short.class, 5);
-        typeConversionRank.put(Byte.class, 6);
+
+        // we don't have factories for these yet
+        // typeConversionRank.put(Short.class, 5);
+        // typeConversionRank.put(Byte.class, 6);
 
         factories = new HashMap<>();
         factories.put(Double.class, new DoubleExpFactory());
@@ -42,15 +44,15 @@ public abstract class ArithmeticExpFactory {
 
     public abstract NumericExp<?> divide(Exp<? extends Number> left, Exp<? extends Number> right);
 
-    public static ArithmeticExpFactory factory(Exp<? extends Number> left, Exp<? extends Number> right) {
+    public static NumericExpFactory factory(Exp<? extends Number> left, Exp<? extends Number> right) {
         return factory(left.getType(), right.getType());
     }
 
-    public static ArithmeticExpFactory factory(Class<? extends Number> left, Class<? extends Number> right) {
+    public static NumericExpFactory factory(Class<? extends Number> left, Class<? extends Number> right) {
 
-        Class<? extends Number> type = resultType(left, right);
+        Class<? extends Number> type = factoryType(left, right);
 
-        ArithmeticExpFactory factory = factories.get(type);
+        NumericExpFactory factory = factories.get(type);
         if (factory == null) {
             throw new IllegalArgumentException("Unsupported arithmetic type: " + type);
         }
@@ -58,16 +60,16 @@ public abstract class ArithmeticExpFactory {
         return factory;
     }
 
-    protected static Class<? extends Number> resultType(Class<? extends Number> left, Class<? extends Number> right) {
+    protected static Class<? extends Number> factoryType(Class<? extends Number> left, Class<? extends Number> right) {
 
         Integer lr = typeConversionRank.get(left);
         if (lr == null) {
-            throw new IllegalArgumentException("Unsupported arithmetic type: " + left);
+            throw new IllegalArgumentException("Unsupported numeric type: " + left);
         }
 
         Integer rr = typeConversionRank.get(right);
         if (rr == null) {
-            throw new IllegalArgumentException("Unsupported arithmetic type: " + right);
+            throw new IllegalArgumentException("Unsupported numeric type: " + right);
         }
 
         // widening conversion that matches standard Java primitive arithmetics

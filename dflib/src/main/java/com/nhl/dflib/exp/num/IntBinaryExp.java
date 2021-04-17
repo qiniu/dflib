@@ -11,7 +11,7 @@ import java.util.function.BinaryOperator;
 /**
  * @since 0.11
  */
-public class IntBinaryExp extends BinaryExp<Integer> implements NumericExp<Integer> {
+public class IntBinaryExp extends BinaryExp<Integer, Integer, Integer> implements NumericExp<Integer> {
 
     private final BinaryOperator<IntSeries> intOp;
 

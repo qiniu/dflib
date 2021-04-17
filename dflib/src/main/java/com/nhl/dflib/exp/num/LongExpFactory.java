@@ -4,19 +4,35 @@ import com.nhl.dflib.exp.Exp;
 import com.nhl.dflib.exp.NumericExp;
 import com.nhl.dflib.exp.UnaryExp;
 
-public class LongExpFactory extends ArithmeticExpFactory {
+public class LongExpFactory extends NumericExpFactory {
 
-    protected static <N extends Number> Exp<Long> castToLong(Exp<N> exp) {
-        return exp.getType().equals(Long.class)
-                ? (Exp<Long>) exp
-                : new UnaryExp<>(exp, Long.class, (N n) -> n != null ? n.longValue() : null);
+    protected static Exp<Long> cast(Exp<?> exp) {
+
+        // TODO: a map of casting converters
+
+        Class<?> t = exp.getType();
+        if (t.equals(Long.class)) {
+            return (Exp<Long>) exp;
+        }
+
+        if (Number.class.isAssignableFrom(t)) {
+            Exp<Number> nExp = (Exp<Number>) exp;
+            return new UnaryExp<>(nExp, Long.class, (Number n) -> n != null ? n.longValue() : null);
+        }
+
+        if (t.equals(String.class)) {
+            Exp<String> sExp = (Exp<String>) exp;
+            return new UnaryExp<>(sExp, Long.class, (String s) -> s != null ? Long.parseLong(s) : null);
+        }
+
+        throw new IllegalArgumentException("Expression type '" + t.getName() + "' can't be converted to Long");
     }
 
     @Override
     public NumericExp<?> plus(Exp<? extends Number> left, Exp<? extends Number> right) {
         return new LongBinaryExp(left.getName() + "+" + right.getName(),
-                castToLong(left),
-                castToLong(right),
+                cast(left),
+                cast(right),
                 (n1, n2) -> n1 != null && n2 != null ? n1.longValue() + n2.longValue() : null,
                 (s1, s2) -> s1.plus(s2));
     }
@@ -24,8 +40,8 @@ public class LongExpFactory extends ArithmeticExpFactory {
     @Override
     public NumericExp<?> minus(Exp<? extends Number> left, Exp<? extends Number> right) {
         return new LongBinaryExp(left.getName() + "-" + right.getName(),
-                castToLong(left),
-                castToLong(right),
+                cast(left),
+                cast(right),
                 (n1, n2) -> n1 != null && n2 != null ? n1.longValue() - n2.longValue() : null,
                 (s1, s2) -> s1.minus(s2));
     }
@@ -33,8 +49,8 @@ public class LongExpFactory extends ArithmeticExpFactory {
     @Override
     public NumericExp<?> multiply(Exp<? extends Number> left, Exp<? extends Number> right) {
         return new LongBinaryExp(left.getName() + "*" + right.getName(),
-                castToLong(left),
-                castToLong(right),
+                cast(left),
+                cast(right),
                 (n1, n2) -> n1 != null && n2 != null ? n1.longValue() * n2.longValue() : null,
                 (s1, s2) -> s1.multiply(s2));
     }
@@ -42,8 +58,8 @@ public class LongExpFactory extends ArithmeticExpFactory {
     @Override
     public NumericExp<?> divide(Exp<? extends Number> left, Exp<? extends Number> right) {
         return new LongBinaryExp(left.getName() + "/" + right.getName(),
-                castToLong(left),
-                castToLong(right),
+                cast(left),
+                cast(right),
                 (n1, n2) -> n1 != null && n2 != null ? n1.longValue() / n2.longValue() : null,
                 (s1, s2) -> s1.divide(s2));
     }

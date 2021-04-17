@@ -32,10 +32,10 @@ public class BinaryCondition<L, R> implements Condition {
 
     @Override
     public BooleanSeries eval(DataFrame df) {
+        return eval(left.eval(df), right.eval(df));
+    }
 
-        Series<L> ls = left.eval(df);
-        Series<R> rs = right.eval(df);
-
+    protected BooleanSeries eval(Series<L> ls, Series<R> rs) {
         return op.apply(ls, rs);
     }
 }
