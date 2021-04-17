@@ -1,5 +1,6 @@
 package com.nhl.dflib;
 
+import com.nhl.dflib.exp.Condition;
 import com.nhl.dflib.join.JoinBuilder;
 import com.nhl.dflib.pivot.PivotBuilder;
 import com.nhl.dflib.row.RowProxy;
@@ -215,6 +216,11 @@ public interface DataFrame extends Iterable<RowProxy> {
     }
 
     <V, VR> DataFrame convertColumn(int pos, ValueMapper<V, VR> converter);
+
+    /**
+     * @since 0.11
+     */
+    DataFrame convertColumn(Exp<?> exp);
 
     /**
      * Performs column conversion to a compact IntC
@@ -481,6 +487,15 @@ public interface DataFrame extends Iterable<RowProxy> {
     <V> DataFrame addColumn(String columnLabel, Series<V> column);
 
     /**
+     * Adds a column with values derived from this DataFrame by applying a given expression.
+     *
+     * @since 0.11
+     */
+    default DataFrame addColumn(Exp<?> exp) {
+        return addColumn(exp.getName(), exp.eval(this));
+    }
+
+    /**
      * @return a new DataFrame with extra columns added
      * @since 0.8
      */
@@ -513,6 +528,13 @@ public interface DataFrame extends Iterable<RowProxy> {
     // TODO: breaking vararg into arg and vararg is a nasty pattern that does not allow to pass whole data structures
     //  built dynamically.. redo this
     DataFrame selectColumns(int pos0, int... otherPositions);
+
+    /**
+     * @since 0.11
+     */
+    // TODO: breaking vararg into arg and vararg is a nasty pattern that does not allow to pass whole data structures
+    //  built dynamically.. redo this
+    DataFrame selectColumns(Exp<?> exp0, Exp<?>... otherExps);
 
     /**
      * @param columnsIndex an index that defines a subset of columns and their ordering in the returned DataFrame.
@@ -580,6 +602,11 @@ public interface DataFrame extends Iterable<RowProxy> {
      * @since 0.6
      */
     DataFrame filterRows(BooleanSeries condition);
+
+    /**
+     * @since 0.11
+     */
+    DataFrame filterRows(Condition condition);
 
     <V extends Comparable<? super V>> DataFrame sort(RowToValueMapper<V> sortKeyExtractor);
 

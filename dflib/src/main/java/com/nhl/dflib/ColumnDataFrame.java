@@ -3,6 +3,7 @@ package com.nhl.dflib;
 import com.nhl.dflib.aggregate.DataFrameAggregation;
 import com.nhl.dflib.concat.HConcat;
 import com.nhl.dflib.concat.VConcat;
+import com.nhl.dflib.exp.Condition;
 import com.nhl.dflib.filter.FilterIndexer;
 import com.nhl.dflib.groupby.Grouper;
 import com.nhl.dflib.map.Mapper;
@@ -309,6 +310,11 @@ public class ColumnDataFrame implements DataFrame {
     }
 
     @Override
+    public DataFrame filterRows(Condition condition) {
+        return filterRows(condition.eval(this));
+    }
+
+    @Override
     public <V extends Comparable<? super V>> DataFrame sort(RowToValueMapper<V> sortKeyExtractor) {
         return new IndexSorter(this).sort(Sorters.sorter(sortKeyExtractor));
     }
@@ -410,6 +416,16 @@ public class ColumnDataFrame implements DataFrame {
         return replaceColumn(pos, dataColumns[pos].map(converter));
     }
 
+    /**
+     * @since 0.11
+     */
+    @Override
+    public DataFrame convertColumn(Exp<?> exp) {
+        // this will throw if the exp name matches no existing columns
+        int pos = getColumnsIndex().position(exp.getName());
+        return replaceColumn(pos, exp.eval(this));
+    }
+
     @Override
     public <V> DataFrame toIntColumn(int pos, IntValueMapper<V> converter) {
         Series<V> c = dataColumns[pos];
@@ -498,6 +514,35 @@ public class ColumnDataFrame implements DataFrame {
     public DataFrame selectColumns(Predicate<String> includeCondition) {
         Index newIndex = columnsIndex.selectLabels(includeCondition);
         return newIndex != columnsIndex ? selectColumns(newIndex) : this;
+    }
+
+    /**
+     * @since 0.11
+     */
+    @Override
+    public DataFrame selectColumns(Exp<?> exp0, Exp<?>... otherExps) {
+        int w = otherExps.length + 1;
+        String[] labels = new String[w];
+        labels[0] = exp0.getName();
+        for (int i = 1; i < w; i++) {
+            labels[i] = otherExps[i - 1].getName();
+        }
+
+        Series[] data = new Series[w];
+        data[0] = exp0.eval(this);
+
+        int h = data[0].size();
+        for (int i = 1; i < w; i++) {
+            data[i] = otherExps[i - 1].eval(this);
+
+            // sanity check - all columns must be the same size
+            // TODO: move this check to the DataFrame builder?
+            if (data[i].size() != h) {
+                throw new IllegalStateException("Unexpected column size for '" + labels[i] + "': " + data[i].size() + ", (expected " + h + ")");
+            }
+        }
+
+        return DataFrame.newFrame(labels).columns(data);
     }
 
     @Override

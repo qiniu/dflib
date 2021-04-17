@@ -7,8 +7,7 @@ import org.openjdk.jmh.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.nhl.dflib.Exp.$double;
-import static com.nhl.dflib.Exp.$int;
+import static com.nhl.dflib.Exp.*;
 
 @Warmup(iterations = 2, time = 1)
 @Measurement(iterations = 3, time = 1)
@@ -73,7 +72,7 @@ public class DataFrameExp {
 
     @Benchmark
     public Object mapStringViaColumn() {
-        Exp<String> concat = Exp.$str("c3").concat(Exp.$str("c4"));
+        Exp<String> concat = $str("c3").concat($str("c4"));
         return concat.eval(df).materialize().iterator();
     }
 

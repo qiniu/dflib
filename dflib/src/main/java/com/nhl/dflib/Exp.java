@@ -1,7 +1,6 @@
 package com.nhl.dflib;
 
-import com.nhl.dflib.exp.Condition;
-import com.nhl.dflib.exp.RenamedExp;
+import com.nhl.dflib.exp.*;
 import com.nhl.dflib.exp.condition.AndCondition;
 import com.nhl.dflib.exp.condition.BooleanColumn;
 import com.nhl.dflib.exp.condition.OrCondition;
@@ -17,27 +16,36 @@ import java.util.Objects;
  */
 public interface Exp<V> {
 
-    static IntColumn $int(String name) {
+    static ValueExp<?> $col(String name) {
+        return new ColumnExp(name, Object.class);
+    }
+
+    static <V> ValueExp<V> $val(V value) {
+        Class type = value != null ? value.getClass() : Object.class;
+        return new SingleValueExp<>(value, type);
+    }
+
+    static StringColumn $str(String name) {
+        return new StringColumn(name);
+    }
+
+    static NumericExp<Integer> $int(String name) {
         return new IntColumn(name);
     }
 
-    static LongColumn $long(String name) {
+    static NumericExp<Long> $long(String name) {
         return new LongColumn(name);
     }
 
-    static DoubleColumn $double(String name) {
+    static NumericExp<Double> $double(String name) {
         return new DoubleColumn(name);
     }
 
     // TODO: inconsistency - unlike numeric columns that support nulls, BooleanColumn is a "Condition",
     //  that can have no nulls, and will internally convert all nulls to "false"..
     //  Perhaps we need a distinction between a "condition" and a "boolean value expression"?
-    static BooleanColumn $bool(String name) {
+    static Condition $bool(String name) {
         return new BooleanColumn(name);
-    }
-
-    static StringColumn $str(String name) {
-        return new StringColumn(name);
     }
 
     static Condition $or(Condition... conditions) {
