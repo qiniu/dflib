@@ -6,7 +6,6 @@ import com.nhl.dflib.exp.condition.BooleanColumn;
 import com.nhl.dflib.exp.condition.OrCondition;
 import com.nhl.dflib.exp.num.DoubleColumn;
 import com.nhl.dflib.exp.num.IntColumn;
-import com.nhl.dflib.exp.num.IntSingleValueExp;
 import com.nhl.dflib.exp.num.LongColumn;
 import com.nhl.dflib.exp.str.StringColumn;
 
@@ -27,14 +26,14 @@ public interface Exp<V> {
             return (ValueExp<V>) new SingleValueExp<>(null, Object.class);
         }
 
-        Class type = value.getClass();
+        // note that wrapping the value in primitive-optimized series has only very small effects on performance
+        // (slightly improves comparisons with primitive series, and slows down comparisons with object-wrapped numbers).
+        // So using the same "exp" for all values.
 
-        // TODO: do XSingleValueExp wrapping for other primitives as well
-        if (Integer.class.equals(type)) {
-            return (ValueExp<V>) new IntSingleValueExp((Integer) value);
-        }
+        // TODO: explore possible performance improvement by not converting scalars to Series at all, and providing a
+        //   separate evaluation path instead.
 
-        return new SingleValueExp<>(value, type);
+        return new SingleValueExp(value, value.getClass());
     }
 
     static StringColumn $str(String name) {
