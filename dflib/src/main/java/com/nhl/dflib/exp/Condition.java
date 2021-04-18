@@ -7,6 +7,8 @@ import com.nhl.dflib.exp.condition.AndCondition;
 import com.nhl.dflib.exp.condition.OrCondition;
 
 /**
+ * A boolean expression.
+ *
  * @since 0.11
  */
 public interface Condition extends Exp<Boolean> {

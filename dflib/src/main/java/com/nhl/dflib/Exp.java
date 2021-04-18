@@ -12,6 +12,9 @@ import com.nhl.dflib.exp.str.StringColumn;
 import java.util.Objects;
 
 /**
+ * Represents an expression that can be evaluated against a DataFrame and produce a Series. Provides a number of factory
+ * methods (all starting with "$") to create various basic expressions that can be combined in more complex expressions.
+ *
  * @since 0.11
  */
 public interface Exp<V> {
