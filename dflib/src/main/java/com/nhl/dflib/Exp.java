@@ -16,15 +16,10 @@ import java.util.Objects;
  */
 public interface Exp<V> {
 
-    static ValueExp<?> $col(String name) {
-        return new ColumnExp(name, Object.class);
-    }
-
+    /**
+     * Returns an expression that evaluates to a Series containing a single value.
+     */
     static <V> ValueExp<V> $val(V value) {
-
-        if (value == null) {
-            return (ValueExp<V>) new SingleValueExp<>(null, Object.class);
-        }
 
         // note that wrapping the value in primitive-optimized series has only very small effects on performance
         // (slightly improves comparisons with primitive series, and slows down comparisons with object-wrapped numbers).
@@ -33,21 +28,44 @@ public interface Exp<V> {
         // TODO: explore possible performance improvement by not converting scalars to Series at all, and providing a
         //   separate evaluation path instead.
 
-        return new SingleValueExp(value, value.getClass());
+        return new SingleValueExp(
+                value,
+                // TODO: in case the is called as "$val((T) null)", the type of the expression will not be the one the
+                //  caller expects
+                value != null ? value.getClass() : Object.class);
     }
 
+    /**
+     * Returns an expression that evaluates to a Series representing a named DataFrame column.
+     */
+    static ValueExp<?> $col(String name) {
+        return new ColumnExp(name, Object.class);
+    }
+
+    /**
+     * Returns an expression that evaluates to a Series of Strings representing a named DataFrame column.
+     */
     static StringColumn $str(String name) {
         return new StringColumn(name);
     }
 
+    /**
+     * Returns an expression that evaluates to a Series of Integers representing a named DataFrame column.
+     */
     static NumericExp<Integer> $int(String name) {
         return new IntColumn(name);
     }
 
+    /**
+     * Returns an expression that evaluates to a Series of Longs representing a named DataFrame column.
+     */
     static NumericExp<Long> $long(String name) {
         return new LongColumn(name);
     }
 
+    /**
+     * Returns an expression that evaluates to a Series of Doubles representing a named DataFrame column.
+     */
     static NumericExp<Double> $double(String name) {
         return new DoubleColumn(name);
     }
