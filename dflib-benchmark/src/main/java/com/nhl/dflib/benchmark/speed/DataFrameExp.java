@@ -89,15 +89,29 @@ public class DataFrameExp {
     }
 
     @Benchmark
-    public Object filterViaLambda() {
-        return df.filterRows("c0", v -> ((Integer) v) >= 2_500_000)
+    public Object filterIntConditionViaLambda() {
+        return df.filterRows("c1", v -> ((Integer) v) >= 1_125_000)
                 .materialize()
                 .iterator();
     }
 
     @Benchmark
-    public Object filterViaExp() {
-        return df.filterRows($int("c0").ge(2_500_000))
+    public Object filterIntConditionViaExp() {
+        return df.filterRows($int("c1").ge(1_125_000))
+                .materialize()
+                .iterator();
+    }
+
+    @Benchmark
+    public Object filterIntegerConditionViaLambda() {
+        return df.filterRows("c2", v -> ((Integer) v) >= 1_125_000)
+                .materialize()
+                .iterator();
+    }
+
+    @Benchmark
+    public Object filterIntegerConditionViaExp() {
+        return df.filterRows($int("c2").ge(1_125_000))
                 .materialize()
                 .iterator();
     }
