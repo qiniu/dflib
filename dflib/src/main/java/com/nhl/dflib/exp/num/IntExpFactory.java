@@ -12,7 +12,7 @@ public class IntExpFactory extends NumericExpFactory {
         // TODO: a map of casting converters
 
         Class<?> t = exp.getType();
-        if (t.equals(Integer.class)) {
+        if (t.equals(Integer.class) || t.equals(Integer.TYPE)) {
             return (Exp<Integer>) exp;
         }
 

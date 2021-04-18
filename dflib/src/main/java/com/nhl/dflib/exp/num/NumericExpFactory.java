@@ -18,9 +18,16 @@ public abstract class NumericExpFactory {
     static {
         typeConversionRank = new HashMap<>();
         typeConversionRank.put(Double.class, 1);
+        typeConversionRank.put(Double.TYPE, 1);
+
         typeConversionRank.put(Float.class, 2);
+        typeConversionRank.put(Float.TYPE, 2);
+
         typeConversionRank.put(Long.class, 3);
+        typeConversionRank.put(Long.TYPE, 3);
+
         typeConversionRank.put(Integer.class, 4);
+        typeConversionRank.put(Integer.TYPE, 4);
 
         // we don't have factories for these yet
         // typeConversionRank.put(Short.class, 5);

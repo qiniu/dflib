@@ -1,7 +1,6 @@
 package com.nhl.dflib.benchmark.speed;
 
 import com.nhl.dflib.*;
-import com.nhl.dflib.benchmark.DataGenerator;
 import com.nhl.dflib.benchmark.ValueMaker;
 import org.openjdk.jmh.annotations.*;
 
@@ -25,13 +24,13 @@ public class DataFrameExp {
     @Setup
     public void setUp() {
 
-        IntSeries c0 = DataGenerator.intSeries(rows, ValueMaker.intSeq());
-        IntSeries c1 = DataGenerator.intSeries(rows, ValueMaker.randomIntSeq(rows / 2));
+        IntSeries c0 = ValueMaker.intSeq().intSeries(rows);
+        IntSeries c1 = ValueMaker.randomIntSeq(rows / 2).intSeries(rows);
         Series<Integer> c2 = Series.forData(c1);
         Series<String> c3 = ValueMaker.stringSeq().series(rows);
         Series<String> c4 = ValueMaker.constStringSeq("abc").series(rows);
-        DoubleSeries c5 = DataGenerator.doubleSeries(rows, ValueMaker.doubleSeq());
-        DoubleSeries c6 = DataGenerator.doubleSeries(rows, ValueMaker.randomDoubleSeq());
+        DoubleSeries c5 = ValueMaker.doubleSeq().doubleSeries(rows);
+        DoubleSeries c6 = ValueMaker.randomDoubleSeq().doubleSeries(rows);
 
         df = DataFrame.newFrame("c0", "c1", "c2", "c3", "c4", "c5", "c6")
                 .columns(c0, c1, c2, c3, c4, c5, c6);
@@ -87,5 +86,19 @@ public class DataFrameExp {
     public Object mapDoubleViaExp() {
         Exp<?> plus = $double("c5").plus($double("c6"));
         return plus.eval(df).materialize().iterator();
+    }
+
+    @Benchmark
+    public Object filterViaLambda() {
+        return df.filterRows("c0", v -> ((Integer) v) >= 2_500_000)
+                .materialize()
+                .iterator();
+    }
+
+    @Benchmark
+    public Object filterViaExp() {
+        return df.filterRows($int("c0").ge(2_500_000))
+                .materialize()
+                .iterator();
     }
 }

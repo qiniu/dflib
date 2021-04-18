@@ -6,6 +6,7 @@ import com.nhl.dflib.exp.condition.BooleanColumn;
 import com.nhl.dflib.exp.condition.OrCondition;
 import com.nhl.dflib.exp.num.DoubleColumn;
 import com.nhl.dflib.exp.num.IntColumn;
+import com.nhl.dflib.exp.num.IntSingleValueExp;
 import com.nhl.dflib.exp.num.LongColumn;
 import com.nhl.dflib.exp.str.StringColumn;
 
@@ -21,7 +22,18 @@ public interface Exp<V> {
     }
 
     static <V> ValueExp<V> $val(V value) {
-        Class type = value != null ? value.getClass() : Object.class;
+
+        if (value == null) {
+            return (ValueExp<V>) new SingleValueExp<>(null, Object.class);
+        }
+
+        Class type = value.getClass();
+
+        // TODO: do XSingleValueExp wrapping for other primitives as well
+        if (Integer.class.equals(type)) {
+            return (ValueExp<V>) new IntSingleValueExp((Integer) value);
+        }
+
         return new SingleValueExp<>(value, type);
     }
 
