@@ -311,7 +311,7 @@ public class ColumnDataFrame implements DataFrame {
 
     @Override
     public DataFrame filterRows(Condition condition) {
-        return filterRows(condition.eval(this));
+        return selectRows(condition.eval(this).indexTrue());
     }
 
     @Override
