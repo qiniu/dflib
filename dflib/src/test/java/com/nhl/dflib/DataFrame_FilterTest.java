@@ -41,4 +41,16 @@ public class DataFrame_FilterTest {
                 .expectRow(1, 30)
                 .expectRow(2, 40);
     }
+
+    @Test
+    public void testFilter_WithBooleanSeries() {
+
+        DataFrame df = DataFrame.newFrame("a").foldByRow(10, 20, 30)
+                .filterRows(BooleanSeries.forBooleans(true, false, true));
+
+        new DataFrameAsserts(df, "a")
+                .expectHeight(2)
+                .expectRow(0, 10)
+                .expectRow(1, 30);
+    }
 }
