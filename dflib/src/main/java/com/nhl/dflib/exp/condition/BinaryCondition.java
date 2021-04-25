@@ -4,7 +4,7 @@ import com.nhl.dflib.BooleanSeries;
 import com.nhl.dflib.DataFrame;
 import com.nhl.dflib.Series;
 import com.nhl.dflib.accumulator.BooleanAccumulator;
-import com.nhl.dflib.exp.Condition;
+import com.nhl.dflib.Condition;
 import com.nhl.dflib.Exp;
 
 import java.util.function.BiFunction;

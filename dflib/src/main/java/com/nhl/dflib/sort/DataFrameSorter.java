@@ -3,7 +3,7 @@ package com.nhl.dflib.sort;
 import com.nhl.dflib.DataFrame;
 import com.nhl.dflib.IntSeries;
 import com.nhl.dflib.RowToValueMapper;
-import com.nhl.dflib.exp.sorter.Sorter;
+import com.nhl.dflib.Sorter;
 import com.nhl.dflib.series.IntArraySeries;
 
 import java.util.function.Supplier;

@@ -1,8 +1,9 @@
-package com.nhl.dflib.exp.sorter;
+package com.nhl.dflib.exp;
 
 import com.nhl.dflib.DataFrame;
 import com.nhl.dflib.Exp;
 import com.nhl.dflib.Series;
+import com.nhl.dflib.Sorter;
 import com.nhl.dflib.sort.Comparators;
 import com.nhl.dflib.sort.IntComparator;
 

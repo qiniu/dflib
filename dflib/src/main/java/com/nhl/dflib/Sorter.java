@@ -1,6 +1,5 @@
-package com.nhl.dflib.exp.sorter;
+package com.nhl.dflib;
 
-import com.nhl.dflib.DataFrame;
 import com.nhl.dflib.sort.IntComparator;
 
 /**

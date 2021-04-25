@@ -1,7 +1,7 @@
 package com.nhl.dflib.sort;
 
 import com.nhl.dflib.*;
-import com.nhl.dflib.exp.sorter.Sorter;
+import com.nhl.dflib.Sorter;
 import com.nhl.dflib.row.DataFrameRowProxy;
 import com.nhl.dflib.row.RowProxy;
 

@@ -2,7 +2,7 @@ package com.nhl.dflib.exp.condition;
 
 import com.nhl.dflib.BooleanSeries;
 import com.nhl.dflib.DataFrame;
-import com.nhl.dflib.exp.Condition;
+import com.nhl.dflib.Condition;
 
 import java.util.function.Function;
 

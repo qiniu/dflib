@@ -3,8 +3,6 @@ package com.nhl.dflib;
 import com.nhl.dflib.aggregate.DataFrameAggregation;
 import com.nhl.dflib.concat.HConcat;
 import com.nhl.dflib.concat.VConcat;
-import com.nhl.dflib.exp.Condition;
-import com.nhl.dflib.exp.sorter.Sorter;
 import com.nhl.dflib.filter.FilterIndexer;
 import com.nhl.dflib.groupby.Grouper;
 import com.nhl.dflib.map.Mapper;

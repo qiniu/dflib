@@ -7,15 +7,14 @@ import com.nhl.dflib.exp.condition.OrCondition;
 import com.nhl.dflib.exp.num.DoubleColumn;
 import com.nhl.dflib.exp.num.IntColumn;
 import com.nhl.dflib.exp.num.LongColumn;
-import com.nhl.dflib.exp.sorter.ExpSorter;
-import com.nhl.dflib.exp.sorter.Sorter;
+import com.nhl.dflib.exp.ExpSorter;
 import com.nhl.dflib.exp.str.StringColumn;
 
 import java.util.Objects;
 
 /**
- * Represents an expression that can be evaluated against a DataFrame and produce a Series. Provides a number of factory
- * methods (all starting with "$") to create various basic expressions that can be combined in more complex expressions.
+ * An expression that can be evaluated against a DataFrame to produce a Series. Provides a number of factory methods
+ * (all starting with "$") to create various basic expressions that can be combined in more complex expressions.
  *
  * @since 0.11
  */

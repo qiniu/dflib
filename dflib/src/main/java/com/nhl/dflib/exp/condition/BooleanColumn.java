@@ -5,7 +5,7 @@ import com.nhl.dflib.BooleanValueMapper;
 import com.nhl.dflib.DataFrame;
 import com.nhl.dflib.Series;
 import com.nhl.dflib.exp.ColumnExp;
-import com.nhl.dflib.exp.Condition;
+import com.nhl.dflib.Condition;
 
 /**
  * @since 0.11
