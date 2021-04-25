@@ -3,6 +3,7 @@ package com.nhl.dflib.sort;
 import com.nhl.dflib.DataFrame;
 import com.nhl.dflib.RowToValueMapper;
 import com.nhl.dflib.Series;
+import com.nhl.dflib.exp.sorter.Sorter;
 import com.nhl.dflib.row.DataFrameRowProxy;
 import com.nhl.dflib.row.RowProxy;
 
@@ -15,6 +16,29 @@ import java.util.Comparator;
  * @since 0.11
  */
 public final class Comparators {
+
+    public static IntComparator of(DataFrame df, Sorter[] sorters) {
+        int w = sorters.length;
+
+        if (w == 0) {
+
+        }
+
+        switch (w) {
+            case 0:
+                throw new IllegalArgumentException("No sort columns");
+            case 1:
+                return sorters[0].eval(df);
+            default:
+                IntComparator sorter = null;
+                for (int i = 0; i < w; i++) {
+                    IntComparator ci = sorters[i].eval(df);
+                    sorter = sorter == null ? ci : sorter.thenComparing(ci);
+                }
+
+                return sorter;
+        }
+    }
 
     public static IntComparator of(DataFrame df, String[] columns, boolean[] ascending) {
         int w = columns.length;

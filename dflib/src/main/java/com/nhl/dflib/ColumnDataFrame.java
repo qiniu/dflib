@@ -4,6 +4,7 @@ import com.nhl.dflib.aggregate.DataFrameAggregation;
 import com.nhl.dflib.concat.HConcat;
 import com.nhl.dflib.concat.VConcat;
 import com.nhl.dflib.exp.Condition;
+import com.nhl.dflib.exp.sorter.Sorter;
 import com.nhl.dflib.filter.FilterIndexer;
 import com.nhl.dflib.groupby.Grouper;
 import com.nhl.dflib.map.Mapper;
@@ -305,6 +306,11 @@ public class ColumnDataFrame implements DataFrame {
     @Override
     public DataFrame filterRows(Condition condition) {
         return selectRows(condition.eval(this).indexTrue());
+    }
+
+    @Override
+    public DataFrame sort(Sorter... sorters) {
+        return new DataFrameSorter(this).sort(sorters);
     }
 
     @Override

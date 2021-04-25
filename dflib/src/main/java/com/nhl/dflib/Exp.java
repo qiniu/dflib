@@ -7,6 +7,8 @@ import com.nhl.dflib.exp.condition.OrCondition;
 import com.nhl.dflib.exp.num.DoubleColumn;
 import com.nhl.dflib.exp.num.IntColumn;
 import com.nhl.dflib.exp.num.LongColumn;
+import com.nhl.dflib.exp.sorter.ExpSorter;
+import com.nhl.dflib.exp.sorter.Sorter;
 import com.nhl.dflib.exp.str.StringColumn;
 
 import java.util.Objects;
@@ -95,6 +97,20 @@ public interface Exp<V> {
     Class<V> getType();
 
     Series<V> eval(DataFrame df);
+
+    /**
+     * Returns a sorter that will use this expression for an ascending sort.
+     */
+    default Sorter asc() {
+        return new ExpSorter(this, true);
+    }
+
+    /**
+     * Returns a sorter that will use this expression for an descending sort.
+     */
+    default Sorter desc() {
+        return new ExpSorter(this, false);
+    }
 
     /**
      * Creates a new expression by renaming the current expression.

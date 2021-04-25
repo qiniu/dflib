@@ -1,6 +1,7 @@
 package com.nhl.dflib;
 
 import com.nhl.dflib.exp.Condition;
+import com.nhl.dflib.exp.sorter.Sorter;
 import com.nhl.dflib.join.JoinBuilder;
 import com.nhl.dflib.pivot.PivotBuilder;
 import com.nhl.dflib.row.RowProxy;
@@ -607,6 +608,11 @@ public interface DataFrame extends Iterable<RowProxy> {
      * @since 0.11
      */
     DataFrame filterRows(Condition condition);
+
+    /**
+     * @since 0.11
+     */
+    DataFrame sort(Sorter... sorters);
 
     <V extends Comparable<? super V>> DataFrame sort(RowToValueMapper<V> sortKeyExtractor);
 
