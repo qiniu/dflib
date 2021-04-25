@@ -1,8 +1,6 @@
 package com.nhl.dflib.sort;
 
-import com.nhl.dflib.DataFrame;
-import com.nhl.dflib.RowToValueMapper;
-import com.nhl.dflib.Series;
+import com.nhl.dflib.*;
 import com.nhl.dflib.exp.sorter.Sorter;
 import com.nhl.dflib.row.DataFrameRowProxy;
 import com.nhl.dflib.row.RowProxy;
@@ -72,7 +70,43 @@ public final class Comparators {
         return sorter;
     }
 
+    public static IntComparator of(IntSeries column, boolean ascending) {
+        return ascending
+                ? (i1, i2) -> Integer.compare(column.getInt(i1), column.getInt(i2))
+                : (i1, i2) -> Integer.compare(column.getInt(i2), column.getInt(i1));
+    }
+
+    public static IntComparator of(LongSeries column, boolean ascending) {
+        return ascending
+                ? (i1, i2) -> Long.compare(column.getLong(i1), column.getLong(i2))
+                : (i1, i2) -> Long.compare(column.getLong(i2), column.getLong(i1));
+    }
+
+    public static IntComparator of(DoubleSeries column, boolean ascending) {
+        return ascending
+                ? (i1, i2) -> Double.compare(column.getDouble(i1), column.getDouble(i2))
+                : (i1, i2) -> Double.compare(column.getDouble(i2), column.getDouble(i1));
+    }
+
+    public static IntComparator of(BooleanSeries column, boolean ascending) {
+        return ascending
+                ? (i1, i2) -> Boolean.compare(column.getBoolean(i1), column.getBoolean(i2))
+                : (i1, i2) -> Boolean.compare(column.getBoolean(i2), column.getBoolean(i1));
+    }
+
     public static IntComparator of(Series<?> column, boolean ascending) {
+
+        // TODO: create a map of strategies per series type?
+        if (column instanceof IntSeries) {
+            return of((IntSeries) column, ascending);
+        } else if (column instanceof DoubleSeries) {
+            return of((DoubleSeries) column, ascending);
+        } else if (column instanceof LongSeries) {
+            return of((LongSeries) column, ascending);
+        } else if (column instanceof BooleanSeries) {
+            return of((BooleanSeries) column, ascending);
+        }
+
         return ascending
                 ? (i1, i2) -> nullsLastCompare((Comparable) column.get(i1), (Comparable) column.get(i2))
                 : (i1, i2) -> nullsLastCompare((Comparable) column.get(i2), (Comparable) column.get(i1));
