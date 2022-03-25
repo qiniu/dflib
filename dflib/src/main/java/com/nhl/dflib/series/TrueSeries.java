@@ -59,11 +59,11 @@ public class TrueSeries extends BooleanBaseSeries {
 
     @Override
     public int countTrue() {
-        return 0;
+        return size;
     }
 
     @Override
     public int countFalse() {
-        return size;
+        return 0;
     }
 }

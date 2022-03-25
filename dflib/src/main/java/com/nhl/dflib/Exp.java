@@ -8,11 +8,14 @@ import com.nhl.dflib.exp.bool.AndCondition;
 import com.nhl.dflib.exp.bool.BoolColumn;
 import com.nhl.dflib.exp.bool.OrCondition;
 import com.nhl.dflib.exp.datetime.DateColumn;
+import com.nhl.dflib.exp.datetime.DateTimeColumn;
+import com.nhl.dflib.exp.datetime.TimeColumn;
 import com.nhl.dflib.exp.filter.PreFilterFirstMatchExp;
 import com.nhl.dflib.exp.filter.PreFilteredCountExp;
 import com.nhl.dflib.exp.filter.PreFilteredExp;
 import com.nhl.dflib.exp.flow.IfExp;
 import com.nhl.dflib.exp.flow.IfNullExp;
+import com.nhl.dflib.exp.ConstExp;
 import com.nhl.dflib.exp.map.MapCondition1;
 import com.nhl.dflib.exp.map.MapCondition2;
 import com.nhl.dflib.exp.map.MapExp1;
@@ -188,6 +191,36 @@ public interface Exp<T> {
      */
     static DateExp $date(int position) {
         return new DateColumn(position);
+    }
+
+    /**
+     * Returns an expression that evaluates to a named datetime column.
+     */
+    static DateTimeExp $datetime(String name) {
+        return new DateTimeColumn(name);
+    }
+
+    /**
+     * Returns an expression that evaluates to a date column at a given position.
+     */
+    static DateTimeExp $datetime(int position) {
+        return new DateTimeColumn(position);
+    }
+
+    /**
+     * Returns an expression that evaluates to a named datetime column.
+     * @param name
+     * @return
+     */
+    static TimeExp $time(String name) {
+        return new TimeColumn(name);
+    }
+
+    /**
+     * Returns an expression that evaluates to a time column at a given position.
+     */
+    static TimeExp $time(int position) {
+        return new TimeColumn(position);
     }
 
     static Condition or(Condition... conditions) {
