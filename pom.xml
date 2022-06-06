@@ -4,7 +4,7 @@
 
     <groupId>com.nhl.dflib</groupId>
     <artifactId>dflib-parent</artifactId>
-    <version>0.13-SNAPSHOT</version>
+    <version>0.13.0</version>
     <name>dflib-parent: Parent of the DFLib library</name>
     <description>Parent POM of the DFLib library</description>
     <packaging>pom</packaging>
